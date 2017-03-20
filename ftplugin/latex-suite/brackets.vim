@@ -94,9 +94,9 @@ function! Tex_LeftRight()
 		let lt = use_left_right ? '\left' : ('\' . size . 'l')
 		let rt = use_left_right ? '\right' : ('\' . size . 'r')
 		return "\<BS>".IMAP_PutTextWithMovement(
-                    \ lt . add . char. '<++>'. rt . add . rhs . '<++>')
+                    \ lt . add . char. ' <++> '. rt . add . rhs . '<++>')
 	elseif char == '<'
-		return "\<BS>".IMAP_PutTextWithMovement('\langle <++>\rangle<++>')
+		return "\<BS>".IMAP_PutTextWithMovement('\langle <++> \rangle<++>')
 	elseif char == 'q'
 		return "\<BS>".IMAP_PutTextWithMovement('\lefteqn{<++>}<++>')
 	else
