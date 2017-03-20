@@ -85,7 +85,16 @@ function! Tex_LeftRight()
 			let add = "\\"
 		endif
 		let rhs = matchstr(matchedbrackets, char.'\zs.\ze')
-		return "\<BS>".IMAP_PutTextWithMovement('\left'.add.char.'<++>\right'.add.rhs.'<++>')
+
+		let size = ''
+		if exists("g:tex_use_sized_delimiters") && g:tex_use_sized_delimiters
+			let size = input("Delimiter size? ", "Big")
+		endif
+        let use_left_right = strlen(size) == 0
+		let lt = use_left_right ? '\left' : ('\' . size . 'l')
+		let rt = use_left_right ? '\right' : ('\' . size . 'r')
+		return "\<BS>".IMAP_PutTextWithMovement(
+                    \ lt . add . char. '<++>'. rt . add . rhs . '<++>')
 	elseif char == '<'
 		return "\<BS>".IMAP_PutTextWithMovement('\langle <++>\rangle<++>')
 	elseif char == 'q'
